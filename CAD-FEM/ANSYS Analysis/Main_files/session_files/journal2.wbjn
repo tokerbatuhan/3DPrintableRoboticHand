@@ -1,0 +1,94 @@
+﻿# encoding: utf-8
+# Release 18.2
+SetScriptVersion(Version="18.2.109")
+system1 = GetSystem(Name="SYS")
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+material1 = engineeringData1.GetMaterial(Name="PLA")
+matlProp1 = material1.GetProperty(Name="Alternating Stress")
+materialPropertyData1 = matlProp1.GetPropertyData(
+    Name="Alternating Stress",
+    Qualifiers={"Definition": "R-Ratio", "Behavior": "", "Interpolation": "Semi-Log"})
+materialPropertyData1.SetSuppression(Suppressed=True)
+matlProp2 = material1.GetProperty(Name="Tensile Yield Strength")
+materialPropertyData2 = matlProp2.GetPropertyData(
+    Name="Tensile Yield Strength",
+    Qualifiers={"Definition": "", "Behavior": ""})
+materialPropertyData2.SetSuppression(Suppressed=True)
+matlProp3 = material1.GetProperty(Name="Compressive Yield Strength")
+materialPropertyData3 = matlProp3.GetPropertyData(
+    Name="Compressive Yield Strength",
+    Qualifiers={"Definition": "", "Behavior": ""})
+materialPropertyData3.SetSuppression(Suppressed=True)
+matlProp4 = material1.GetProperty(Name="Compressive Ultimate Strength")
+materialPropertyData4 = matlProp4.GetPropertyData(
+    Name="Compressive Ultimate Strength",
+    Qualifiers={"Definition": "", "Behavior": ""})
+materialPropertyData4.SetSuppression(Suppressed=True)
+matlProp5 = material1.GetProperty(Name="Coefficient of Thermal Expansion")
+materialPropertyData5 = matlProp5.GetPropertyData(
+    Name="Coefficient of Thermal Expansion",
+    Qualifiers={"Definition": "Secant", "Behavior": "Isotropic"})
+materialPropertyData5.SetSuppression(Suppressed=True)
+materialPropertyData6 = matlProp5.GetPropertyData(
+    Name="Zero-Thermal-Strain Reference Temperature",
+    Qualifiers={"Definition": "Secant", "Behavior": "Isotropic"})
+materialPropertyData6.SetSuppression(Suppressed=True)
+engineeringDataComponent1 = system1.GetComponent(Name="Engineering Data")
+engineeringDataComponent1.Update(AllDependencies=True)
+engineeringDataComponent1.UpdateUpstreamComponents()
+library1 = EngData.OpenLibrary(
+    Name="General Materials",
+    Source="General_Materials.xml")
+matl1 = engineeringData1.ImportMaterial(
+    Name="PLA",
+    Source="General_Materials.xml")
+Update()
+materialPropertyData1.SetSuppression(Suppressed=False)
+materialPropertyData2.SetSuppression(Suppressed=False)
+materialPropertyData3.SetSuppression(Suppressed=False)
+materialPropertyData4.SetSuppression(Suppressed=False)
+materialPropertyData5.SetSuppression(Suppressed=False)
+materialPropertyData6.SetSuppression(Suppressed=False)
+matlProp6 = material1.GetProperty(Name="Elasticity")
+matlProp6.SetQualifier(
+    Qualifier="Derive from",
+    Value="Bulk Modulus and Poisson's Ratio")
+matlProp6.SetQualifier(
+    Qualifier="Derive from",
+    Value="Young's Modulus and Poisson's Ratio")
+matlProp6.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.33"]])
+matl2 = engineeringData1.ImportMaterial(
+    Name="PLA",
+    Source="General_Materials.xml")
+material2 = library1.GetMaterial(Name="PLA")
+matlProp7 = material2.GetProperty(Name="Elasticity")
+matlProp7.SetQualifier(
+    Qualifier="Derive from",
+    Value="Young's Modulus and Poisson's Ratio")
+matlProp7.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.33"]])
+material2.Refresh(Source="General_Materials.xml")
+matlProp8 = material2.GetProperty(Name="Elasticity")
+matlProp8.SetQualifier(
+    Qualifier="Derive from",
+    Value="Young's Modulus and Poisson's Ratio")
+matlProp8.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.33"]])
+Save(Overwrite=True)
+library1.Save()
+matl3 = engineeringData1.ImportMaterial(
+    Name="PLA",
+    Source="General_Materials.xml")
+engineeringDataComponent1.Update(AllDependencies=True)
+material2.AddToFavorites()
+favorites1 = EngData.LoadFavoriteItems()
+Save(Overwrite=True)
+Update()
+setup1 = system1.GetContainer(ComponentName="Setup")
+setup1.Edit()
+engineeringDataComponent1.UpdateUpstreamComponents()
+Save(Overwrite=True)

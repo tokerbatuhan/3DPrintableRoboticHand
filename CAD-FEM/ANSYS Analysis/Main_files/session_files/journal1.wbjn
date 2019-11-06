@@ -1,0 +1,177 @@
+﻿# encoding: utf-8
+# Release 18.2
+SetScriptVersion(Version="18.2.109")
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+library1 = EngData.OpenLibrary(
+    Name="General Materials",
+    Source="General_Materials.xml")
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.SetFile(FilePath="C:/Users/zehir/Desktop/Prosthetic Handv2/Assem2.STEP")
+EngData.EnableFilter(Enable=False)
+EngData.EnableFilter()
+library2 = EngData.OpenLibrary(
+    Name="Explicit Materials",
+    Source="Explicit_Materials.xml")
+library1.Save()
+library1.Save()
+library3 = EngData.OpenLibrary(
+    Name="Thermal Materials",
+    Source="Thermal_Materials.xml")
+EngData.EnableFilter(Enable=False)
+geometry1.Edit(IsSpaceClaimGeometry=True)
+geometry1.Exit()
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+Update()
+model1.Exit()
+model1.Edit()
+geometry1.Edit(IsSpaceClaimGeometry=True)
+geometry1.Exit()
+Update()
+model1.Edit()
+Save(Overwrite=True)
+model1.Exit()
+model1.Edit()
+EngData.EnableFilter()
+EngData.EnableFilter(Enable=False)
+EngData.EnableFilter()
+matl1 = library1.CreateMaterial(Name="PLA")
+model1.Exit()
+favorites1 = EngData.LoadFavoriteItems()
+library4 = EngData.OpenLibrary(
+    Name="Composite Materials",
+    Source="Composite_Materials.xml")
+library5 = EngData.OpenLibrary(
+    Name="Geomechanical Materials",
+    Source="GeoMechanical_Materials.xml")
+library6 = EngData.OpenLibrary(
+    Name="Hyperelastic Materials",
+    Source="Hyperelastic_Materials.xml")
+library7 = EngData.OpenLibrary(
+    Name="General Non-linear Materials",
+    Source="General Materials Non-linear.xml")
+library8 = EngData.OpenLibrary(
+    Name="Magnetic B-H Curves",
+    Source="Magnetic_B-H_curves_Soft_Materials.xml")
+material1 = library1.GetMaterial(Name="Aluminum Alloy")
+matl2 = material1.Duplicate(TargetContainer=library1)
+matl1.Delete()
+material2 = library1.GetMaterial(Name="Concrete")
+matlProp1 = material2.GetProperty(Name="Elasticity")
+matlProp1.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="MPa")
+matlProp1.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["30000 [MPa]"]])
+matlProp1.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["3500 [MPa]"]])
+matlProp1.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="Pa")
+matlProp1.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["3500000000 [Pa]"]])
+matlProp1.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.33"]])
+matlProp1.SetQualifier(
+    Qualifier="Derive from",
+    Value="Shear Modulus and Poisson's Ratio")
+matlProp1.SetData(
+    Variables=["Shear Modulus"],
+    Values=[["2400000000 [Pa]"]])
+matlProp1.SetQualifier(
+    Qualifier="Derive from",
+    Value="Shear Modulus and Young's Modulus")
+matlProp1.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["3500000000 [Pa]"]])
+matlProp2 = material2.GetProperty(Name="Tensile Ultimate Strength")
+matlProp2.SetVariableProperty(
+    VariableName="Tensile Ultimate Strength",
+    Property="Unit",
+    Value="hbar")
+matlProp2.SetData(
+    Variables=["Tensile Ultimate Strength"],
+    Values=[["0.5 [hbar]"]])
+matlProp2.SetVariableProperty(
+    VariableName="Tensile Ultimate Strength",
+    Property="Unit",
+    Value="MPa")
+matlProp2.SetData(
+    Variables=["Tensile Ultimate Strength"],
+    Values=[["5 [MPa]"]])
+matlProp2.SetData(
+    Variables=["Tensile Ultimate Strength"],
+    Values=[["50 [MPa]"]])
+matlProp3 = material2.GetProperty(Name="Density")
+matlProp3.SetVariableProperty(
+    VariableName="Density",
+    Property="Unit",
+    Value="g cm^-3")
+matlProp3.SetData(
+    Variables=["Density"],
+    Values=[["2.3000000000000003 [g cm^-3]"]])
+matlProp3.SetData(
+    Variables=["Density"],
+    Values=[["1.3 [g cm^-3]"]])
+matlProp4 = matl2.GetProperty(Name="Density")
+matlProp4.SetVariableProperty(
+    VariableName="Density",
+    Property="Unit",
+    Value="g cm^-3")
+matlProp4.SetData(
+    Variables=["Density"],
+    Values=[["2.77 [g cm^-3]"]])
+matlProp4.SetData(
+    Variables=["Density"],
+    Values=[["1.77 [g cm^-3]"]])
+matlProp4.SetData(
+    Variables=["Density"],
+    Values=[["1.3 [g cm^-3]"]])
+matlProp5 = matl2.GetProperty(Name="Elasticity")
+matlProp5.SetQualifier(
+    Qualifier="Derive from",
+    Value="Shear Modulus and Young's Modulus")
+matlProp5.SetData(
+    Variables=["Shear Modulus"],
+    Values=[["2400000000 [Pa]"]])
+matlProp5.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["2400000000 [Pa]"]])
+matlProp5.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["3500000000 [Pa]"]])
+matlProp6 = matl2.GetProperty(Name="Tensile Ultimate Strength")
+matlProp6.SetVariableProperty(
+    VariableName="Tensile Ultimate Strength",
+    Property="Unit",
+    Value="MPa")
+matlProp6.SetData(
+    Variables=["Tensile Ultimate Strength"],
+    Values=[["310 [MPa]"]])
+matlProp6.SetData(
+    Variables=["Tensile Ultimate Strength"],
+    Values=[["50 [MPa]"]])
+model1.Edit()
+model1.Exit()
+library1.Save()
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+matl3 = engineeringData1.ImportMaterial(
+    Name="PLA",
+    Source="General_Materials.xml")
+model1.Edit()
+model1.Exit()
+Update()
+model1.Edit()
+model1.Exit()
+Save(Overwrite=True)

@@ -1,0 +1,43 @@
+/COM,ANSYS RELEASE Release 18.2      BUILD 18.2      UP20170726       00:20:35
+
+ *** WARNING ***                         CP =       1.500   TIME= 00:20:37
+ Using 1 iteration per substep may result in unconverged solutions for   
+ nonlinear analysis and the program may not indicate divergence in this  
+ case.  Check your results.                                              
+
+ *** WARNING ***                         CP =       1.531   TIME= 00:20:37
+ Element shape checking is currently inactive.  Issue SHPP,ON or         
+ SHPP,WARN to reactivate, if desired.                                    
+
+ *** WARNING ***                         CP =       1.594   TIME= 00:20:37
+ The preconditioned conjugate gradient solver (EQSLV,PCG command) only   
+ works for fully constrained model.  There are less than 3 constraints   
+ in the current model.  The solver has been reset to sparse              
+ (EQSLV,SPARSE).                                                         
+
+ *** WARNING ***                         CP =       1.938   TIME= 00:20:37
+ Material number 243 (used by element 49830 ) should normally have at    
+ least one MP or one TB type command associated with it.  Output of      
+ energy by material may not be available.                                
+
+ *** WARNING ***                         CP =       1.938   TIME= 00:20:37
+ No constraints have been defined using the D command.                   
+
+ *** WARNING ***                         CP =      15.109   TIME= 00:20:49
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 604) which may indicate a numerically         
+ unstable model.  Please check your results carefully.                   
+
+ *** ERROR ***                           CP =      15.234   TIME= 00:20:49
+ The value of UY at node 338 is 1.118967604E+10.  It is greater than the 
+ current limit of 1000000 (which can be reset on the NCNV command).      
+ This generally indicates rigid body motion as a result of an            
+ unconstrained model.  Verify that your model is properly constrained.   
+
+ *** ERROR ***                           CP =      15.234   TIME= 00:20:49
+ *** MESSAGE CONTINUATION ---- DIAGNOSTIC INFORMATION ***                
+ If one or more parts of the model are held together only by contact     
+ verify that the contact surfaces are closed.  Also make sure that       
+ there are constraints (or friction) in the sliding direction even if    
+ no load is applied in that direction.  You can use the CNCHECK command  
+ to check the initial contact status in the SOLUTION module.             
